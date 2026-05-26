@@ -1,0 +1,40 @@
+name: Docker Image CI
+
+on:
+  #daily at 3 UTC
+  schedule:
+    - cron: "0 3 * * *"
+  #this is triggered also on PR merge
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build nextcloud image
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [ 33,latest ]
+
+    steps:
+        -
+          name: Checkout code
+          uses: actions/checkout@v6
+        -
+          name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v4
+        -
+          name: Login to DockerHub
+          uses: docker/login-action@v4
+          with:
+            username: ${{ secrets.DOCKER_HUB_USERNAME }}
+            password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+        -
+          name: Build and push Docker images for nextcloud ${{ matrix.version }}
+          uses: docker/build-push-action@v7
+          with:
+            pull: true
+            context: ${{ matrix.version }}
+            tags: oceanbt/nextcloud:${{ matrix.version }}
+            push: true
+            no-cache: true
