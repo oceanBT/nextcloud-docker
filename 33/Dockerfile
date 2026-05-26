@@ -22,12 +22,8 @@ RUN set -ex; \
         bzip2-dev \
     ; \
     \
-#    pecl install imap; \
-#    docker-php-ext-enable imap; \
-#    docker-php-ext-configure imap --with-kerberos --with-imap-ssl; \
     docker-php-ext-install \
         bz2 \
-#        imap \
     ; \
     pecl install imap \
       --configureoptions="--with-kerberos --with-imap-ssl"; \
