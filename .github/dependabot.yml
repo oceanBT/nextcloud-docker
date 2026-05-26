@@ -5,16 +5,6 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/32"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/31"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
 # Maintain dependencies for GitHub Actions
 - package-ecosystem: "github-actions"
   directory: "/"
